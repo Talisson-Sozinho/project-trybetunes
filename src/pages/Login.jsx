@@ -9,7 +9,7 @@ export default class Login extends React.Component {
   constructor() {
     super();
     this.onChangeInput = this.onChangeInput.bind(this);
-    this.handleLoginButtonClick = this.handleLoginButtonClick.bind(this);
+    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.state = {
       userName: '',
       isButtonDisabled: true,
@@ -17,7 +17,8 @@ export default class Login extends React.Component {
     };
   }
 
-  handleLoginButtonClick() {
+  handleLoginSubmit(event) {
+    event.preventDefault();
     this.setState({ creatingUser: true });
     const { userName } = this.state;
     createUser({ name: userName }).then(() => {
@@ -40,7 +41,7 @@ export default class Login extends React.Component {
         {
           !creatingUser
             ? (
-              <form>
+              <form onSubmit={ this.handleLoginSubmit }>
                 <input
                   name="userName"
                   data-testid="login-name-input"
@@ -50,8 +51,7 @@ export default class Login extends React.Component {
                 />
                 <button
                   data-testid="login-submit-button"
-                  type="button"
-                  onClick={ this.handleLoginButtonClick }
+                  type="submit"
                   disabled={ isButtonDisabled }
                 >
                   Entrar
