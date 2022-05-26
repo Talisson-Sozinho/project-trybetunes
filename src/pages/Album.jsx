@@ -29,7 +29,7 @@ export default class Album extends React.Component {
               artistName,
               collectionName,
               trackId,
-              previewUrl }, index) => {
+              previewUrl }, index, musicsArray) => {
               if (index === 0) {
                 return (
                   <header key={ artistName }>
@@ -38,11 +38,15 @@ export default class Album extends React.Component {
                   </header>
                 );
               }
-              return (<MusicCard
-                key={ trackId }
-                trackName={ trackName }
-                previewUrl={ previewUrl }
-              />);
+              return (
+                <MusicCard
+                  key={ trackId }
+                  trackId={ trackId }
+                  trackName={ trackName }
+                  previewUrl={ previewUrl }
+                  musicInfo={ musicsArray[index] }
+                />
+              );
             }) : <Loading />
           }
         </ul>
